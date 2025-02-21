@@ -82,8 +82,9 @@ def get_generators(adj_matrices):
 def get_distances(input_matrices, norm='fro'):
     distances = np.zeros(shape=(len(input_matrices), len(input_matrices)))
     for i in tqdm(range(len(input_matrices)), desc="Computing distances", ascii=True):
-        for j in range(len(input_matrices)):
+        for j in range(i+1):
             distances[i, j] = np.linalg.norm(input_matrices[i]-input_matrices[j], ord=norm)
+            distances[j, i] = distances[i, j]
     return np.array(distances)
     
 def get_gramian(distances, sigma):
